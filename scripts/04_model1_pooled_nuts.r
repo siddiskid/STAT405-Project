@@ -30,10 +30,6 @@ X <- stats::model.matrix(f, data = df)
 X <- X[, colnames(X) != "(Intercept)", drop = FALSE]
 y <- as.integer(df$confinan_ord)
 
-if (!all(y %in% c(1L, 2L, 3L))) stop("Bad y values")
-
-if (length(y) != nrow(X)) stop("y and X mismatch")
-
 stan_data <- list(
   N = nrow(X),
   K = ncol(X),
@@ -42,60 +38,6 @@ stan_data <- list(
 )
 
 tibble::tibble(metric = c("N", "K"), value = c(stan_data$N, stan_data$K))
-
-stan_code <- "
-
-data {
-
-  int<lower=1> N;
-
-  int<lower=1> K;
-
-  int<lower=1,upper=3> y[N];
-
-  matrix[N, K] X;
-
-}
-
-parameters {
-
-  vector[K] beta;
-
-  ordered[2] c;
-
-}
-
-model {
-
-  beta ~ normal(0, 1);
-
-  c ~ normal(0, 2.5);
-
-  y ~ ordered_logistic(X * beta, c);
-
-}
-
-generated quantities {
-
-  vector[N] log_lik;
-
-  int<lower=1,upper=3> y_rep[N];
-
-  for (n in 1:N) {
-
-    log_lik[n] = ordered_logistic_lpmf(y[n] | (X[n] * beta), c);
-
-    y_rep[n] = ordered_logistic_rng((X[n] * beta), c);
-
-  }
-
-}
-
-"
-
-dir.create("../stan", recursive = TRUE, showWarnings = FALSE)
-
-writeLines(stan_code, con = "../stan/model1_pooled_ordinal.stan")
 
 if (exists("fit_m1_nuts")) rm(fit_m1_nuts)
 
@@ -115,12 +57,9 @@ fit_m1_nuts <- rstan::sampling(
  )
 
 lp <- rstan::extract(fit_m1_nuts, pars = "lp__", permuted = TRUE)$lp__
-if (length(lp) == 0) stop("No draws")
 length(lp)
 
 sum_raw <- as.data.frame(rstan::summary(fit_m1_nuts)$summary, check.names = FALSE)
-
-if (nrow(sum_raw) == 0) stop("Summary empty")
 
 sum_raw$parameter <- rownames(sum_raw)
 
@@ -162,8 +101,6 @@ diag_summary
 
 yrep <- rstan::extract(fit_m1_nuts, pars = "y_rep", permuted = TRUE)$y_rep
 
-if (is.null(yrep) || nrow(yrep) == 0) stop("No y_rep")
-
 yrep_subset <- yrep[sample.int(nrow(yrep), size = min(200, nrow(yrep))), , drop = FALSE]
 
 ppc_plot <- bayesplot::ppc_bars(y = y, yrep = yrep_subset)
@@ -174,4 +111,3 @@ saveRDS(fit_m1_nuts, file = "../output/model1_nuts/fit_m1_nuts.rds")
 readr::write_csv(fit_summary, "../output/model1_nuts/fit_summary.csv")
 readr::write_csv(diag_summary, "../output/model1_nuts/diagnostics_summary.csv")
 ggplot2::ggsave(filename = "../output/model1_nuts/ppc_bars_model1.png", plot = ppc_plot, width = 7, height = 4, dpi = 150)
-

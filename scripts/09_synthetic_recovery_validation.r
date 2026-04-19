@@ -71,9 +71,6 @@ sim_m2 <- simulate_model2(X_m2, ideology_id, G = length(levels(m2$polviews_bin))
 stan_data_m1_syn <- list(N = nrow(X_m1), K = ncol(X_m1), y = sim_m1$y, X = X_m1)
 stan_data_m2_syn <- list(N = nrow(X_m2), K = ncol(X_m2), G = length(levels(m2$polviews_bin)), y = sim_m2$y, X = X_m2, ideology_id = ideology_id)
 
-if (!file.exists("../stan/model1_pooled_ordinal.stan")) stop("Missing model1 stan file.")
-if (!file.exists("../stan/model2_hierarchical_ordinal.stan")) stop("Missing model2 stan file.")
-
 sm_m1 <- rstan::stan_model(file = "../stan/model1_pooled_ordinal.stan", model_name = "model1_pooled_ordinal")
 sm_m2 <- rstan::stan_model(file = "../stan/model2_hierarchical_ordinal.stan", model_name = "model2_hierarchical_ordinal")
 
