@@ -1,0 +1,5 @@
+metric,value
+n_rows_raw,3986
+n_cols_raw,980
+n_rows_core,3986
+n_complete_core,2223
