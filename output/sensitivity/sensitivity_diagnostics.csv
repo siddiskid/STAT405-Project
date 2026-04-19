@@ -1,0 +1,5 @@
+model,prior,max_rhat,n_divergences
+Model1,tight,1.0018914558421363,0
+Model1,wide,1.0009137655785523,0
+Model2,tight,1.0046170670881436,0
+Model2,wide,1.0021671603974323,0

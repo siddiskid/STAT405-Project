@@ -1,0 +1,11 @@
+path,stage,description,exists
+output/model1_nuts/diagnostics_summary.csv,Model 1 NUTS,Convergence and ESS diagnostics,TRUE
+output/model2_nuts/diagnostics_summary.csv,Model 2 NUTS,"Convergence, ESS, divergences, treedepth",TRUE
+output/vi/compare_metrics.csv,VI comparison,Aggregate VI vs NUTS discrepancy metrics,TRUE
+output/model_compare/loo_summary.csv,Model comparison,PSIS-LOO estimates for both models,TRUE
+output/model_compare/loo_diff.csv,Model comparison,elpd difference and uncertainty,TRUE
+output/model_compare/ppc_model1_bars.png,Model comparison,PPC bars for Model 1,TRUE
+output/model_compare/ppc_model2_bars.png,Model comparison,PPC bars for Model 2,TRUE
+output/sensitivity/sensitivity_metrics.csv,Prior sensitivity,Sensitivity metrics by model and prior,TRUE
+output/validation/recovery_metrics.csv,Validation,Synthetic recovery metrics,TRUE
+output/validation/recovery_scatter.png,Validation,True vs posterior mean recovery plot,TRUE

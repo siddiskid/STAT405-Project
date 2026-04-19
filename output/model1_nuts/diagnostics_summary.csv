@@ -1,0 +1,4 @@
+metric,value
+max_rhat,1.0029329672017204
+min_ess,1394.429737715299
+n_params_rhat_gt_1.01,0

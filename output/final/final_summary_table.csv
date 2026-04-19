@@ -1,0 +1,15 @@
+section,key,value
+NUTS diagnostics,Model1,"max_rhat=1.0029, min_ess=1394.4, divergences=0"
+NUTS diagnostics,Model2,"max_rhat=1.0034, min_ess=996.5, divergences=0"
+VI vs NUTS,Model1,"median_sd_ratio=0.665, median_abs_mean_diff=0.009"
+VI vs NUTS,Model2,"median_sd_ratio=0.572, median_abs_mean_diff=0.036"
+Model comparison,Model2,"elpd_loo=-2136.73, se=24.11"
+Model comparison,Model1,"elpd_loo=-2136.88, se=24.13"
+Model comparison,elpd_diff_m2_minus_m1,0.153
+Model comparison,se_diff_approx,34.111
+Prior sensitivity,Model1_tight,"median_abs_mean_shift=0.005, median_sd_ratio=0.95"
+Prior sensitivity,Model1_wide,"median_abs_mean_shift=0.014, median_sd_ratio=1.038"
+Prior sensitivity,Model2_tight,"median_abs_mean_shift=0.039, median_sd_ratio=0.541"
+Prior sensitivity,Model2_wide,"median_abs_mean_shift=0.048, median_sd_ratio=2.103"
+Synthetic recovery,Model1,"coverage_rate=1, median_abs_error=0.065, max_rhat=1.008"
+Synthetic recovery,Model2,"coverage_rate=0.941, median_abs_error=0.087, max_rhat=1.005"

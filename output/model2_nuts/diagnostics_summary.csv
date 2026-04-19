@@ -1,0 +1,6 @@
+metric,value
+max_rhat,1.0033749801525293
+min_ess,996.4544846523172
+n_params_rhat_gt_1.01,0
+n_divergences,0
+max_treedepth,8
